@@ -1,0 +1,35 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "6a1656cb8512467fab0dbb8754b9ad41b2dba09b85c49104ef22496e6b2f9476"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_version": "3.10"
+        },
+        "sources": [
+            {
+                "name": "pypi",
+                "url": "https://pypi.org/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {
+        "neo4j": {
+            "hashes": [
+                "sha256:6b61d6b0a98f775dba7260009be549574b0f0bf6ea2d6a2bd1eb72ecbbed7308"
+            ],
+            "index": "pypi",
+            "version": "==4.4.1"
+        },
+        "pytz": {
+            "hashes": [
+                "sha256:3672058bc3453457b622aab7a1c3bfd5ab0bdae451512f6cf25f64ed37f5b87c",
+                "sha256:acad2d8b20a1af07d4e4c9d2e9285c5ed9104354062f275f3fcd88dcef4f1326"
+            ],
+            "version": "==2021.3"
+        }
+    },
+    "develop": {}
+}
