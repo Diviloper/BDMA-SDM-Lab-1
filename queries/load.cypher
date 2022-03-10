@@ -1,3 +1,4 @@
+
 LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS line
 CREATE(p:Publication {
   name: line.Title,
@@ -16,8 +17,31 @@ MERGE (a)-[:writes]->(p)
 WITH p, line,
      split(line.`Index Keywords`, '; ') AS keywords_list
 UNWIND keywords_list AS keyword_item
-MERGE(k:Keyword {keyword: keyword_item})
+MERGE (k:Keyword {keyword: keyword_item})
 MERGE (p)-[:has]->(k)
+MERGE (j:JournalConference {
+  name: line.`Source title`,
+  type: line.`Document Type`,
+  year: toInteger(line.Year),
+  volume: coalesce(line.Volume, 0)})
+MERGE (p)-[:published_in]->(j)
+;
+
+//TODO: change volume from JournalConference to a property of the relation published_in for Journals
+MATCH (j:JournalConference {type:'Article'})
+REMOVE j:JournalConference
+REMOVE j.year
+SET j:Journal
+;
+
+MATCH (c:JournalConference {type:'Conference Paper'})
+REMOVE c:JournalConference
+REMOVE c.volume
+SET c:ConferenceEdition
+;
+
+MATCH (ce:ConferenceEdition)
+MERGE (ce)-[:belongs_to]->(c:Conference {name:ce.name})
 ;
 
 
