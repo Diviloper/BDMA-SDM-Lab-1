@@ -12,6 +12,7 @@ def analyze_data():
     print(f'Number of Author-Paper: '
           f'{sum(len(paper[1].split(";")) - (1 if paper[1].endswith(";") else 0) for paper in data)}')
     print(f'Number of Keywords: {len({key.strip() for paper in data for key in paper[18].split(";")})}')
+    print(f'Number of Publishers: {len({paper[4] for paper in data})}')
 
 
 if __name__ == '__main__':
