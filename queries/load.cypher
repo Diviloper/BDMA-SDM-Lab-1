@@ -53,13 +53,18 @@ MERGE (a:Author {id: author_ids[a_index]})
 CREATE (a)-[:writes]->(p)
 ;
 
-// Create keywords and Journals
+// Create keywords
 LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS line
 MATCH (p:Publication {doi: line.DOI})
 WITH p, line, split(line.`Index Keywords`, '; ') AS keywords_list
 UNWIND keywords_list AS keyword_item
 MERGE (k:Keyword {keyword: keyword_item})
 CREATE (p)-[:has]->(k)
+;
+
+// Create Journals
+LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS line
+MATCH (p:Publication {doi: line.DOI})
 MERGE (j:JournalConference {
   name:   line.`Source title`,
   type:   line.`Document Type`,
@@ -99,10 +104,9 @@ SET c:ConferenceEdition
 ;
 
 MATCH (ce:ConferenceEdition)
-MERGE (ce)-[:belongs_to]->(c:Conference {name: ce.name})
+MERGE (c:Conference {name: ce.name})
+MERGE (ce)-[:belongs_to]->(c)
 ;
-
-RETURN line.Title, author_ids[a_index], author_names[a_index];
 
 // Checker query
 MATCH (a:Author)
