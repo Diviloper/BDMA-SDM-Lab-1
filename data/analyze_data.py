@@ -14,6 +14,12 @@ def analyze_data():
     print(f'Number of Keywords: {len({key.strip() for paper in data for key in paper[18].split(";")})}')
     print(f'Number of Publishers: {len({paper[4] for paper in data})}')
 
+    author_papers = {}
+    for paper in data:
+        for author in paper[1].split(';')[:-1]:
+            author_papers[author] = author_papers[author] + 1 if author in author_papers else 1
+    print(f'Average papers per author: {sum(author_papers.values()) / len(author_papers)}')
+
 
 if __name__ == '__main__':
     analyze_data()
