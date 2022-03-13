@@ -9,33 +9,72 @@ def clean_data():
         csv_file = csv.reader(file)
         headers = next(csv_file)
         output.writerow(headers)
+
+        dois = set()
         for row in csv_file:
+            # Remove publications that are neither an Article nor a Conference Paper
             if row[19] not in ['Article', 'Conference Paper']:
                 continue
             authors = row[0].split(', ')
             affiliations = row[15].split('; ')
+            # Remove publications with a mismatch in the author information
             if len(authors) != len(affiliations):
                 continue
+            # Remove publications without a DOI
+            if row[12] is None:
+                continue
+            # Remove duplicated publications
+            if row[12] in dois:
+                continue
+            dois.add(row[12])
             output.writerow(row)
+
+
+def analyze_data():
+    with open('./data/clean_data.csv', encoding='utf8') as file:
+        data = list(csv.reader(file))[1:]
+    print(f'Number of publications: {len(data)}')
+    print(f'Number of Titles: {len({paper[2] for paper in data})}')
+    print(f'Number of DOIs: {len({paper[12] for paper in data})}')
+    print(f'Number of Links: {len({paper[13] for paper in data})}')
+    print(f'Number of Authors: {len({author for paper in data for author in paper[1].split(";")})}')
+    dois = set()
+    for p in data:
+        if p[12] in dois:
+            print(p[12])
+            print(p[2])
+        else:
+            dois.add(p[12])
 
 
 def create_citation_csv():
     with open('./data/clean_data.csv', encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
+
+    # Sort papers by year
     data.sort(key=lambda x: int(x[3]))
+
+    # Get the keywords of each paper
     keywords = [set(paper[18].split('; ')) for paper in data]
+
     citations = []
     for index, paper in enumerate(data):
-        citable_papers = [(i, p[2]) for i, p in enumerate(data[:index]) if
+        # Get the citable papers -> papers published previously with at least one keyword in common
+        citable_papers = [(i, p[12]) for i, p in enumerate(data[:index]) if
                           p[3] != paper[3] and not keywords[i].isdisjoint(keywords[index])]
+
+        # If there is no citable paper we just don't cite anything
         if len(citable_papers) == 0:
             continue
-        if len(citable_papers) < 5:
-            citations.extend([(paper[2], citation[1]) for citation in citable_papers])
+        # If there is less than 5 citable papers, we cite them all
+        if len(citable_papers) < 10:
+            cited_papers = citable_papers
+        # Otherwise, we cite a random number of papers between 10 and 20
         else:
             num_citations = min(random.randint(10, 20), len(citable_papers))
             cited_papers = random.sample(citable_papers, num_citations)
-            citations.extend([(paper[2], citation[1]) for citation in cited_papers])
+
+        citations.extend([(paper[12], citation[1]) for citation in cited_papers])
 
     with open('./data/citations.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
@@ -61,6 +100,8 @@ def generate_review(decision):
 def create_review_csv():
     with open('./data/clean_data.csv', encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
+
+    # Get the keywords related to an author -> Keywords that are present in at least one of their papers
     author_keywords = {}
     for paper in data:
         authors = paper[1].split(';')
@@ -70,22 +111,39 @@ def create_review_csv():
                 author_keywords[author].update(keywords)
             else:
                 author_keywords[author] = keywords
+
     reviews = []
     reviewers = []
     for paper in data:
         paper_authors = paper[1].split(';')
         paper_keywords = set(paper[18].split('; '))
+        # Get the potential reviewers of the paper -> People other than the authors of the paper that
+        #                                               have some keywords in common with the paper
         potential_reviewers = [author for author, keywords in author_keywords.items() if
                                author not in paper_authors and not keywords.isdisjoint(paper_keywords)]
+
+        # If there is less than 3 potential reviewers, we choose from the whole set of authors
         if len(potential_reviewers) < 3:
-            paper_reviewers = random.sample([author for author in author_keywords if author not in paper_authors], 3)
+            potential_external_reviewers = [author for author in author_keywords if author not in paper_authors]
+            paper_reviewers = set(potential_reviewers)
+            while len(paper_reviewers) < 3:
+                paper_reviewers.add(random.choice(potential_external_reviewers))
+            paper_reviewers = list(paper_reviewers)
+        # If there are more, we randomly chose 3
         else:
             paper_reviewers = random.sample(potential_reviewers, 3)
-        reviewers.append([paper[2], ';'.join(paper_reviewers)])
+
+        # Save the list of reviewers
+        reviewers.append([paper[12], ';'.join(paper_reviewers)])
+
+        # We chose a decision (True = Approved, False = Rejected) for each of them
+        # Since all papers in the database must be published and there are 3 reviewers, at most 1 can reject the paper
         decisions = random.sample([True, False], 3, counts=[5, 1])
+
         for reviewer, decision in zip(paper_reviewers, decisions):
+            # Generate a review for the revision
             review = generate_review(decision)
-            reviews.append([paper[2], reviewer, decision, review])
+            reviews.append([paper[12], reviewer, decision, review])
 
     with open('./data/reviews.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
@@ -131,6 +189,7 @@ def extract_affiliations():
 
 if __name__ == '__main__':
     # clean_data()
-    # create_citation_csv()
-    # create_review_csv()
+    analyze_data()
+    create_citation_csv()
+    create_review_csv()
     extract_affiliations()
