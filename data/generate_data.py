@@ -3,8 +3,8 @@ import random
 
 
 def clean_data():
-    with open('./data/data.csv', encoding='utf8') as file, \
-            open('./data/clean_data.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open('./data/csvs/data.csv', encoding='utf8') as file, \
+            open('./data/csvs/clean_data.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         csv_file = csv.reader(file)
         headers = next(csv_file)
@@ -21,34 +21,20 @@ def clean_data():
             if len(authors) != len(affiliations):
                 continue
             # Remove publications without a DOI
-            if row[12] is None:
+            if not row[12]:
                 continue
             # Remove duplicated publications
             if row[12] in dois:
+                continue
+            # Remove publications without keywords
+            if not row[18]:
                 continue
             dois.add(row[12])
             output.writerow(row)
 
 
-def analyze_data():
-    with open('./data/clean_data.csv', encoding='utf8') as file:
-        data = list(csv.reader(file))[1:]
-    print(f'Number of publications: {len(data)}')
-    print(f'Number of Titles: {len({paper[2] for paper in data})}')
-    print(f'Number of DOIs: {len({paper[12] for paper in data})}')
-    print(f'Number of Links: {len({paper[13] for paper in data})}')
-    print(f'Number of Authors: {len({author for paper in data for author in paper[1].split(";")})}')
-    dois = set()
-    for p in data:
-        if p[12] in dois:
-            print(p[12])
-            print(p[2])
-        else:
-            dois.add(p[12])
-
-
 def create_citation_csv():
-    with open('./data/clean_data.csv', encoding='utf8') as file:
+    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
 
     # Sort papers by year
@@ -76,7 +62,7 @@ def create_citation_csv():
 
         citations.extend([(paper[12], citation[1]) for citation in cited_papers])
 
-    with open('./data/citations.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open('./data/csvs/citations.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Paper', 'Citation'])
         output.writerows(citations)
@@ -98,7 +84,7 @@ def generate_review(decision):
 
 
 def create_review_csv():
-    with open('./data/clean_data.csv', encoding='utf8') as file:
+    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
 
     # Get the keywords related to an author -> Keywords that are present in at least one of their papers
@@ -145,18 +131,18 @@ def create_review_csv():
             review = generate_review(decision)
             reviews.append([paper[12], reviewer, decision, review])
 
-    with open('./data/reviews.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open('./data/csvs/reviews.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Paper', 'Reviewer', 'Decision', 'Review'])
         output.writerows(reviews)
-    with open('./data/reviewers.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open('./data/csvs/reviewers.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Paper', 'Reviewers'])
         output.writerows(reviewers)
 
 
 def extract_affiliations():
-    with open('./data/clean_data.csv', encoding='utf8') as file:
+    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
     affiliations = {}
     for paper in data:
@@ -181,15 +167,14 @@ def extract_affiliations():
         for author, aff in affiliations.items()
         for org, org_type in aff
     ]
-    with open('./data/affiliations.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open('./data/csvs/affiliations.csv', encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Author', 'Organization Name', 'Type'])
         output.writerows(flat_affiliations)
 
 
 if __name__ == '__main__':
-    # clean_data()
-    analyze_data()
+    clean_data()
     create_citation_csv()
     create_review_csv()
     extract_affiliations()
