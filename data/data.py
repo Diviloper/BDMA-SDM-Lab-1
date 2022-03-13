@@ -97,7 +97,38 @@ def create_review_csv():
         output.writerows(reviewers)
 
 
+def extract_affiliations():
+    with open('./data/clean_data.csv', encoding='utf8') as file:
+        data = list(csv.reader(file))[1:]
+    affiliations = {}
+    for paper in data:
+        author_affiliations = paper[15].split('; ')
+        for affiliation in author_affiliations:
+            parts = affiliation.split(', ')
+            if len(parts) < 3:
+                continue
+            name = f'{parts[0]} {parts[1]}'
+            uni = next(
+                (i for i in parts[2:] if any((x in i.lower() for x in ['univ', 'college', 'institut', 'academ']))),
+                None)
+            org = (uni or parts[2], 'University' if uni else 'Company')
+            if name in affiliations:
+                affiliations[name].add(org)
+            else:
+                affiliations[name] = {org}
+    flat_affiliations = [
+        [author, org, org_type]
+        for author, aff in affiliations.items()
+        for org, org_type in aff
+    ]
+    with open('./data/affiliations.csv', encoding='utf8', mode='w+', newline='') as output_file:
+        output = csv.writer(output_file)
+        output.writerow(['Author', 'Organization Name', 'Type'])
+        output.writerows(flat_affiliations)
+
+
 if __name__ == '__main__':
-    clean_data()
-    create_citation_csv()
-    create_review_csv()
+    # clean_data()
+    # create_citation_csv()
+    # create_review_csv()
+    extract_affiliations()
