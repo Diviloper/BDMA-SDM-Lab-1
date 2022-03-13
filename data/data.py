@@ -63,7 +63,7 @@ def create_review_csv():
         data = list(csv.reader(file))[1:]
     author_keywords = {}
     for paper in data:
-        authors = paper[0].split(', ')
+        authors = paper[1].split(';')
         keywords = set(paper[18].split('; '))
         for author in authors:
             if author in author_keywords:
@@ -73,7 +73,7 @@ def create_review_csv():
     reviews = []
     reviewers = []
     for paper in data:
-        paper_authors = paper[0].split(', ')
+        paper_authors = paper[1].split(';')
         paper_keywords = set(paper[18].split('; '))
         potential_reviewers = [author for author, keywords in author_keywords.items() if
                                author not in paper_authors and not keywords.isdisjoint(paper_keywords)]
@@ -102,20 +102,22 @@ def extract_affiliations():
         data = list(csv.reader(file))[1:]
     affiliations = {}
     for paper in data:
+        auth_ids = {name: auth_id for name, auth_id in zip(paper[0].split(', '), paper[1].split(';'))}
         author_affiliations = paper[15].split('; ')
         for affiliation in author_affiliations:
             parts = affiliation.split(', ')
             if len(parts) < 3:
                 continue
             name = f'{parts[0]} {parts[1]}'
+            author_id = auth_ids[name]
             uni = next(
                 (i for i in parts[2:] if any((x in i.lower() for x in ['univ', 'college', 'institut', 'academ']))),
                 None)
             org = (uni or parts[2], 'University' if uni else 'Company')
-            if name in affiliations:
-                affiliations[name].add(org)
+            if author_id in affiliations:
+                affiliations[author_id].add(org)
             else:
-                affiliations[name] = {org}
+                affiliations[author_id] = {org}
     flat_affiliations = [
         [author, org, org_type]
         for author, aff in affiliations.items()
