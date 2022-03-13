@@ -51,6 +51,7 @@ UNWIND author_index AS a_index
 MERGE (a:Author {id: author_ids[a_index]})
   ON CREATE SET a.name = author_names[a_index]
 CREATE (a)-[:writes]->(p)
+;
 
 // Create keywords and Journals
 LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS line
@@ -65,6 +66,7 @@ MERGE (j:JournalConference {
   year:   toInteger(line.Year),
   volume: coalesce(line.Volume, 0)})
 CREATE (p)-[:published_in]->(j)
+;
 
 // Add reviewers
 LOAD CSV WITH HEADERS FROM 'file:///reviewers.csv' AS line
@@ -73,6 +75,7 @@ WITH p, split(line.Reviewers, ';') AS reviewers
 UNWIND reviewers AS reviewer
 MATCH (r:Author {id: reviewer})
 CREATE (r)-[:reviews]->(p)
+;
 
 // Add citations
 LOAD CSV WITH HEADERS FROM 'file:///citations.csv' AS line
@@ -80,6 +83,7 @@ MATCH (p:Publication {doi: line.Paper})
 WITH line, p
 MATCH (c:Publication {doi: line.Citation})
 CREATE (p)-[:cites]->(c)
+;
 
 //TODO: change volume from JournalConference to a property of the relation published_in for Journals
 MATCH (j:JournalConference {type: 'Article'})
