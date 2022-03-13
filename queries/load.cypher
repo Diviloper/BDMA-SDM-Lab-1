@@ -58,17 +58,23 @@ MATCH (c:Publication {doi: line.Citation})
 CREATE (p)-[:cites]->(c)
 ;
 
-//TODO: change volume from JournalConference to a property of the relation published_in for Journals
 MATCH (j:JournalConference {type: 'Article'})
 REMOVE j:JournalConference
 REMOVE j.year
+REMOVE j.type
 SET j:Journal
+;
+
+MATCH (n)-[p:published_in]->(j:Journal)
+SET p.volume = j.volume
+REMOVE j.volume
 ;
 
 MATCH (c:JournalConference {type: 'Conference Paper'})
 REMOVE c:JournalConference
 REMOVE c.volume
 SET c:ConferenceEdition
+REMOVE c.type
 ;
 
 MATCH (ce:ConferenceEdition)
