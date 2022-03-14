@@ -70,13 +70,12 @@ def expand_data(data_csv, expanded_data_csv):
         headers = next(reader)
         data = list(reader)
 
-    # Get list of conference publications
-    conference_papers = [paper for paper in data if paper[19] == 'Conference Paper']
-
     expanded_papers = []
+
     # For each paper create three extra papers:
     # Two published on the previous years (Origins and Prequel) and one on the next year (Sequel)
-    for paper in conference_papers:
+    # TODO: Change volume in articles
+    for paper in data:
         expanded_papers.append(create_origins_paper(paper))
         expanded_papers.append(create_prequel_paper(paper))
         expanded_papers.append(create_sequel_paper(paper))
@@ -231,7 +230,7 @@ def extract_affiliations(data_csv, affiliations_csv):
 if __name__ == '__main__':
     clean_data(data_csv='./data/csvs/data.csv', clean_data_csv='./data/csvs/clean_data.csv')
     expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
-    # create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
-    # create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
-    #                   reviewers_csv='./data/csvs/reviewers.csv')
-    # extract_affiliations(data_csv='./data/csvs/expanded_data.csv', affiliations_csv='./data/csvs/affiliations.csv')
+    create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
+    create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
+                      reviewers_csv='./data/csvs/reviewers.csv')
+    extract_affiliations(data_csv='./data/csvs/expanded_data.csv', affiliations_csv='./data/csvs/affiliations.csv')

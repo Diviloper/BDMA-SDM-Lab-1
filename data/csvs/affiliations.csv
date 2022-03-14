@@ -5,15 +5,15 @@ Author,Organization Name,Type
 6508306234,University of Trás-os-Montes and Alto Douro (UTAD),University
 6508306234,Universidade de Trás-os-Montes e Alto Douro,University
 9277159100,Ira A. Fulton College of Engineering and Technology,University
-9277159100,Brigham Young Univ.,University
 9277159100,Brigham Young University,University
+9277159100,Brigham Young Univ.,University
 6507358470,University of Trás-os-Montes and Alto Douro (UTAD),University
 57204031131,Brigham Young University,University
 6602649851,Brigham Young University,University
 56830076500,Brigham Young University,University
 57204029674,Brigham Young University,University
-57204032253,East Hartford,Company
 57204032253,Pratt and Whitney,Company
+57204032253,East Hartford,Company
 57217149830,Brigham Young University,University
 57217149403,Brigham Young University,University
 57217145377,Brigham Young University,University
@@ -24,12 +24,12 @@ Author,Organization Name,Type
 55611356500,Brigham Young University,University
 57218886193,Tufts University,University
 57210260262,Tufts University,University
-6701777223,Faculty of Technical Sciences,Company
-6701777223,Dept. of Power Electr. and Comm. Eng,Company
 6701777223,Serbia Academy of Engineering Sciences of Serbia,University
-6701777223,University of Novi Sad,University
-6701777223,Department of Power,Company
 6701777223,Dept. of Power,Company
+6701777223,Faculty of Technical Sciences,Company
+6701777223,University of Novi Sad,University
+6701777223,Dept. of Power Electr. and Comm. Eng,Company
+6701777223,Department of Power,Company
 8448666000,Brigham Young UniversityUT,University
 8448666000,Brigham Young University,University
 36149254500,North Carolina State University,University
@@ -45,13 +45,13 @@ Author,Organization Name,Type
 57218593446,Brigham Young University,University
 57218591162,Brigham Young University,University
 57201772566,University of California,University
+16422844400,University of California Santa Cruz,University
 16422844400,University of California,University
 16422844400,University of Californnia at Santa Cruz,University
-16422844400,University of California Santa Cruz,University
 16422844400,University of California at Santa Cruz,University
 7102975249,University of California,University
-7102975249,Brigham Young University,University
 7102975249,University of California Santa Cruz,University
+7102975249,Brigham Young University,University
 57193338296,Jinan University,University
 57194692502,Brigham Young University,University
 57202017958,University of Wisconsin-Madison,University
@@ -60,8 +60,8 @@ Author,Organization Name,Type
 57201634652,Brigham Young University,University
 57218685929,Brigham Young University,University
 18535712500,Brigham Young University,University
-56248593800,Brigham Young University ProvoUT,University
 56248593800,Brigham Young University,University
+56248593800,Brigham Young University ProvoUT,University
 10640480600,Air Force Research Laboratory,Company
 24923036100,Infoscitex Corporation,Company
 7201675107,Miami Valley Aerospace Llc,Company
@@ -88,8 +88,8 @@ Author,Organization Name,Type
 57218097969,Brigham Young University,University
 7003302831,Brigham Young University,University
 16066928300,Brigham Young University,University
-56584019300,University of Dayton,University
 56584019300,Brigham Young University,University
+56584019300,University of Dayton,University
 57217581937,Brigham Young University,University
 57214937519,Brigham Young University,University
 57217581770,Brigham Young University,University
@@ -130,13 +130,13 @@ Author,Organization Name,Type
 35597296700,Brigham Young University,University
 55649569259,Wavetronix LLC,Company
 55649569259,Wavetronix Llc,Company
-55649569259,Wavetronix,Company
 55649569259,Brigham Young University,University
+55649569259,Wavetronix,Company
 55849071700,Brigham Young University,University
-57190404271,Uber Advanced Technologies Group,Company
 57190404271,Brigham Young University,University
-35562442700,NASA Langley Research Center,Company
+57190404271,Uber Advanced Technologies Group,Company
 35562442700,Brigham Young University,University
+35562442700,NASA Langley Research Center,Company
 7006542177,Brigham Young University,University
 36668159600,Air Force Research Laboratory,Company
 36668159600,U.S. Air Force Research Laboratory,Company
@@ -160,8 +160,8 @@ Author,Organization Name,Type
 6701746882,Brigham Young University,University
 10141271600,Brigham Young University,University
 7202277096,Brigham Young University,University
-6701720294,Utah Valley University,University
 6701720294,Brigham Young University,University
+6701720294,Utah Valley University,University
 57211516485,Brigham Young University,University
 57200077532,BYU MAGICC Lab.,Company
 57200077532,Brigham Young University,University
@@ -237,28 +237,28 @@ Author,Organization Name,Type
 36349287300,Brigham Young University,University
 57189235340,Brigham Young University,University
 55547123342,Brigham Young University,University
-25639041400,Cisco System Inc.,Company
 25639041400,Cisco Systems Inc,Company
+25639041400,Cisco System Inc.,Company
 55967471000,Cisco Systems Inc,Company
 57218221803,Cisco Systems Inc,Company
-56387524600,University of California,University
 56387524600,University of California Santa Cruz,University
+56387524600,University of California,University
 56387524600,University of California at Santa Cruz,University
 57202735625,Brigham Young University,University
 7003381644,Brigham Young University,University
 6701834327,Sri Sivasubramaniya College of Engineering,University
-57202445593,Chalmers University of Technology,University
 57202445593,Chalmers University,University
-7004609408,Danville,Company
+57202445593,Chalmers University of Technology,University
 7004609408,Consultant,Company
+7004609408,Danville,Company
 8660143800,Brigham Young University,University
 6506736843,Brandenburgische Technische Universität Cottbus-Senftenberg 01968,University
 6506736843,Chalmers University,University
 6507359986,Supervising Transportation Engineer,Company
 57214365851,Brigham Young Univ.,University
 57212088299,Structural Analyst Engineer,Company
-7003663333,368 CB Brigham Young Univ.,University
 7003663333,Brigham Young Univ.,University
+7003663333,368 CB Brigham Young Univ.,University
 7003663333,Brigham Young University,University
 6602889035,Univ. of California Los Angeles,University
 57216181629,University of Maryland,University
@@ -317,12 +317,12 @@ Author,Organization Name,Type
 57194698845,Brigham Young University,University
 35409277700,Brigham Young University,University
 57193749678,Brigham Young University,University
-55457444300,Mechanical Engineering,Company
 55457444300,Brigham Young UniversityUT  84602,University
 55457444300,Brigham Young University,University
-6701863708,Mechanical Engineering,Company
+55457444300,Mechanical Engineering,Company
 6701863708,Brigham Young UniversityUT  84602,University
 6701863708,Brigham Young University,University
+6701863708,Mechanical Engineering,Company
 57201666213,Brigham Young University,University
 55694540600,Brigham Young University,University
 7003545107,Brigham Young University,University
@@ -333,10 +333,10 @@ Author,Organization Name,Type
 8750608700,Brigham Young University,University
 57214071214,Utah Valley University,University
 57193518829,Brigham Young University,University
-7006583274,The Ohio State University,University
 7006583274,Ohio State University,University
-55359526600,Department of Computational Materials & Data Science,Company
+7006583274,The Ohio State University,University
 55359526600,Department of Computational Materials and Data Science,Company
+55359526600,Department of Computational Materials & Data Science,Company
 56911636200,Department of Materials Mechanics & Tribology,Company
 55272011900,Ohio State University,University
 57203486012,Ohio State University,University
@@ -365,8 +365,8 @@ Author,Organization Name,Type
 57215052018,Brigham Young University,University
 57215058041,Brigham Young University,University
 56957771800,Brigham Young University,University
-57204469757,Boeing Satellite Systems,Company
 57204469757,Brigham Young University,University
+57204469757,Boeing Satellite Systems,Company
 57188691775,Brigham Young University,University
 57188173800,Brigham Young University,University
 57202579348,Brigham Young University,University
@@ -413,24 +413,24 @@ Author,Organization Name,Type
 57189375802,Brigham Young University,University
 57212455523,Brigham Young University,University
 6603286802,Brigham Young University,University
-57023931200,SINTEF,Company
 57023931200,SINTEF Petroleum Research,Company
-24830555500,SINTEF,Company
+57023931200,SINTEF,Company
 24830555500,SINTEF Petroleum Research,Company
-6602776615,SINTEF,Company
+24830555500,SINTEF,Company
 6602776615,SINTEF Petroleum Research,Company
+6602776615,SINTEF,Company
 56857577200,Brigham Young University,University
 16643231700,Naval Research Laboratory,Company
 16643231700,U.S. Naval Research Laboratory,Company
-55359090100,Battlespace Acoustics Branch,Company
 55359090100,Air Force Research Laboratory,Company
+55359090100,Battlespace Acoustics Branch,Company
 55359090100,U.S. Air Force Research Laboratory,Company
 57217872286,Brigham Young University,University
 57217867341,Freelance data scientist,Company
 36893877000,Resource Systems Group,Company
 57189218211,University of Electronic Science and Technology of China,University
-48361087900,University of California,University
 48361087900,Brigham Young University,University
+48361087900,University of California,University
 7005241866,Philipps-Universität Marburg,University
 7006815587,University of Michigan,University
 36154754400,Brigham Young University,University
@@ -443,10 +443,10 @@ Author,Organization Name,Type
 55367023500,Brigham Young University,University
 7403329173,Guangzhou Sport University,University
 57204964732,Brigham Young University,University
-12544690900,ISR-3-space Data Systems,Company
 12544690900,Los Alamos National Laboratory,Company
-54978625300,Brigham-Young University,University
+12544690900,ISR-3-space Data Systems,Company
 54978625300,Brigham Young University,University
+54978625300,Brigham-Young University,University
 57201947722,Duke University,University
 57209567638,Columbia University,University
 57209581042,Ira A. Fulton College,University
@@ -454,8 +454,8 @@ Author,Organization Name,Type
 14831622300,Los Alamos National Laboratory,Company
 14831622300,Engineering Institute,University
 12646372900,Engineering Technology and Design Division,Company
-55788214400,Engineering Technology and Design Division,Company
 55788214400,Los Alamos National Laboratory,Company
+55788214400,Engineering Technology and Design Division,Company
 57219330558,Brigham Young University,University
 57219332168,University of California San Diego,University
 57219327922,The University of Texas at Dallas,University
@@ -463,8 +463,8 @@ Author,Organization Name,Type
 56263319900,Nanyang Technological University,University
 55436436900,Zero-Error Systems,Company
 57218480110,College of Electronics and Information Engineering,University
-7004688501,National Chiao Tung University,University
 7004688501,International College of Semiconductor Technology,University
+7004688501,National Chiao Tung University,University
 7601550121,Nanyang Technological University,University
 57201735120,National Institute of Standards and Technology,University
 57216287696,Brigham Young University,University
@@ -484,10 +484,10 @@ Author,Organization Name,Type
 9279493200,Department of Physics,Company
 57194034271,North Carolina State Univ.,University
 53866135200,Exponent,Company
-55315026400,Brigham Young Univ,University
 55315026400,Ira A. Fulton College of Engineering and Technology,University
-55315026400,Brigham Young Univ.,University
+55315026400,Brigham Young Univ,University
 55315026400,Brigham Young University,University
+55315026400,Brigham Young Univ.,University
 57216076371,Univ. of Nevada,University
 56818839700,Univ. of Nevada,University
 23570183200,Oregon State Univ.,University
@@ -517,8 +517,8 @@ Author,Organization Name,Type
 56266132600,Brigham Young University,University
 57210289242,Brigham Young University,University
 57209399454,Brigham Young University,University
-9245406100,Concepts NREC,Company
 9245406100,Concepts NRECVT  05001,Company
+9245406100,Concepts NREC,Company
 57194053456,Brigham Young University,University
 56968013300,Brigham Young University,University
 6701723921,Caterpillar Inc.,Company
@@ -532,12 +532,12 @@ Author,Organization Name,Type
 57212950333,University of Southampton,University
 55945437600,Massachusetts Institute of Technology,University
 7004277402,Oden Institute for Computational Engineering and Sciences,University
-55911870000,Oden Institute for Computational Engineering and Sciences,University
 55911870000,Institute for Computational Engineering and Sciences,University
+55911870000,Oden Institute for Computational Engineering and Sciences,University
 57215811083,Brigham Young UniversityUT,University
+17434035200,Instituto de Telecomunicações,University
 17434035200,University of Coimbra,University
 17434035200,Instituto de Telecomunicacões,University
-17434035200,Instituto de Telecomunicações,University
 17434035200,Instituto de Telecomunicacoes,University
 24726409500,University of Coimbra,University
 57191862517,Brigham Young University,University
@@ -564,9 +564,9 @@ Author,Organization Name,Type
 7402658393,Brigham Young University,University
 56680952700,Brigham Young University,University
 7003498769,University of Kansas,University
-55588035200,Department of Electrical Engineering and Computer Science,Company
 55588035200,University of Tennessee,University
 55588035200,MIT Lincoln Laboratory,Company
+55588035200,Department of Electrical Engineering and Computer Science,Company
 6601908155,Brigham Young University,University
 56102505100,KTH Royal Institute of Technology,University
 57191620725,University of California at Santa Barbara,University
@@ -606,8 +606,8 @@ Author,Organization Name,Type
 16481299700,Institute of Engineering at National Autonomous University of Mexico,University
 56331558100,University of Arkansas,University
 47962305800,Auburn University,University
-7101640734,University of California,University
 7101640734,University of California at San Diego,University
+7101640734,University of California,University
 7101640734,Univ. of California,University
 55916448500,University of Puerto Rico Mayaguez,University
 57200363612,Brigham Young University,University
@@ -637,8 +637,8 @@ Author,Organization Name,Type
 7406665619,Brigham Young University,University
 57212089454,University of California,University
 57202116348,Brigham Young University,University
-56709476900,University of California,University
 56709476900,University of California Santa Cruz,University
+56709476900,University of California,University
 56709476900,University of California at Santa Cruz,University
 57205025235,Brigham Young University,University
 57202256915,Brigham Young University,University
@@ -653,8 +653,8 @@ Author,Organization Name,Type
 7409253428,National Chiao Tung University,University
 7404504014,National Chiao Tung University,University
 57144864700,Nanjing Medical University,University
-57194205673,Nanjing Medical University,University
 57194205673,China Medical University,University
+57194205673,Nanjing Medical University,University
 35078644900,National Quemoy University,University
 57204475222,CSIRO Data61,Company
 8208317300,Central Taiwan University of Science and Technology,University
@@ -678,11 +678,11 @@ Author,Organization Name,Type
 7402648240,Advanced Materials and Manufacturing Processes Institute,University
 57200884469,Pacific Northwest National Lab,Company
 57200884469,Pacific Northwest National Laboratory,Company
-57203221999,General Motors,Company
 57203221999,General Motors LLC,Company
 57203221999,General Motors Technical Center,Company
-6603570606,Naval Undersea Warfare Center,Company
+57203221999,General Motors,Company
 6603570606,Advanced Instrumentation Systems Technology (AIST) Executing Agent,Company
+6603570606,Naval Undersea Warfare Center,Company
 57203028829,Brigham Young University,University
 55858031100,Brigham Young University,University
 57211493546,Brigham Young University,University
@@ -741,8 +741,8 @@ Author,Organization Name,Type
 57191587072,Brigham Young University,University
 24295291100,Brigham Young University,University
 23052031200,Ohio State University,University
-7004495126,Theoretical Division,Company
 7004495126,UC Santa Barbara,Company
+7004495126,Theoretical Division,Company
 12778890800,University of New Hampshire,University
 57194703295,California Institute of Technology,University
 57144565100,Institute of Engineering at National Autonomous University of Mexico,University
@@ -814,8 +814,8 @@ Author,Organization Name,Type
 57203250533,University of North Carolina at Chapel Hill,University
 57203957449,Sun Yat-sen University,University
 14059209700,Sun Yat-sen University,University
-57201759181,Institute of Systems Engineering,University
 57201759181,Xi'an Jiaotong University,University
+57201759181,Institute of Systems Engineering,University
 16548784600,Xi'an Jiaotong University,University
 57210286057,Brigham Young UniversityUT,University
 57210287346,Brigham Young UniversityUT,University
@@ -1002,12 +1002,12 @@ Author,Organization Name,Type
 57215116223,Brigham Young University,University
 57191952713,Brigham Young University,University
 57188658434,Brigham Young University,University
-36682113800,National Wind Technology Center,Company
 36682113800,National Renewable Energy Laboratory,Company
-56245452300,National Wind Technology Center,Company
+36682113800,National Wind Technology Center,Company
 56245452300,National Renewable Energy Laboratory,Company
-35310092900,National Wind Technology Center,Company
+56245452300,National Wind Technology Center,Company
 35310092900,National Renewable Energy Laboratory,Company
+35310092900,National Wind Technology Center,Company
 57214589312,Brigham Young University,University
 57215007775,Brigham Young University,University
 36126203400,Idaho National Laboratory,Company
@@ -1030,14 +1030,14 @@ Author,Organization Name,Type
 56709364700,Brigham Young University,University
 57208012133,Brigham Young Univ.,University
 57208012227,Wagstaff Crane Service,Company
-55698505100,University of California,University
 55698505100,University of California Santa Cruz,University
+55698505100,University of California,University
 57203308821,Brigham Young University,University
-55326143600,University of California,University
 55326143600,University of California Santa Cruz,University
+55326143600,University of California,University
 57212351859,Brigham Young University,University
-7404766197,US Air Force Academy,University
 7404766197,US Air Force Academy Colorado SpringsCO,University
+7404766197,US Air Force Academy,University
 57212271159,Brigham Young University,University
 57205765859,Brigham Young University,University
 57210375461,Institute of Thermal Science and Technology,University
@@ -1070,8 +1070,8 @@ Author,Organization Name,Type
 34868658300,Texas A and M University,University
 34868658300,College of Architecture,University
 57215305002,Texas A and M University,University
-7410171017,College of Engineering,University
 7410171017,Brigham Young University,University
+7410171017,College of Engineering,University
 57215336161,Virginia Polytechnic Institute and State University,University
 57201360985,Brigham Young University,University
 57212351343,Brigham Young University,University
@@ -1088,8 +1088,8 @@ Author,Organization Name,Type
 7102443026,Çukurova University,University
 7403558004,College of Life Sciences,University
 7403558004,Dept of Ex Sci,Company
-55247719300,University of California,University
 55247719300,University of California Santa Cruz,University
+55247719300,University of California,University
 56871132500,University of California Santa Cruz,University
 7402407628,Texas Biomedical Research Institute,University
 56790117900,Brigham Young University,University
@@ -1101,9 +1101,9 @@ Author,Organization Name,Type
 55353164900,Science and Technology Facility Council,Company
 7101816954,Science and Technology Facility Council,Company
 13411176900,Xidian University,University
-8922674200,Xidian University,University
-8922674200,Xi’an Jiaotong University,University
 8922674200,Xi'an Jiaotong University,University
+8922674200,Xi’an Jiaotong University,University
+8922674200,Xidian University,University
 56577741600,University of Illinois at Chicago,University
 55807316700,University of Illinois at Chicago,University
 7102317656,Jadavpur University,University
@@ -1260,8 +1260,8 @@ Author,Organization Name,Type
 7801604567,Purdue University,University
 57204434337,Brigham Young University,University
 56556056000,Northwest Hydraulic Consultants,Company
-26642910500,Brigham Young Univ,University
 26642910500,Brigham Young Univ.,University
+26642910500,Brigham Young Univ,University
 57196465311,J-U-B Engineers,Company
 56740595400,Utah State University,University
 56662711400,Brigham Young University,University
@@ -1300,8 +1300,8 @@ Author,Organization Name,Type
 57207782220,Baylor College of Medicine,University
 23987692400,Department of Defense,Company
 24323203800,Virginia Commonwealth University,University
-7403220237,Mark and Mary Stevens Neuroimaging and Informatics Institute Keck,University
 7403220237,Semel Institute for Neuroscience and Human Behavior,University
+7403220237,Mark and Mary Stevens Neuroimaging and Informatics Institute Keck,University
 7103286989,University of Missouri-St. Louis,University
 12445208100,Brigham Young University,University
 55708105800,University of Puget Sound,University
@@ -1359,8 +1359,8 @@ Author,Organization Name,Type
 57193356353,Brigham Young University,University
 57200371154,Brigham Young University,University
 56331127200,Brigham Young University,University
-35269204800,East Hartford,Company
 35269204800,Brigham Young University,University
+35269204800,East Hartford,Company
 57203433787,Brigham Young University,University
 23569552400,Brigham Young Univ.,University
 57201393186,Brigham Young University,University
@@ -1454,16 +1454,16 @@ Author,Organization Name,Type
 57206024435,Green Bank Observatory,Company
 6507270351,National Radio Astronomy Observatory CDL,Company
 6602305778,National Radio Astronomy Observatory CDL,Company
-56218368600,The University of Tokyo,University
 56218368600,University of Tokyo,University
-55837442300,The University of Tokyo,University
+56218368600,The University of Tokyo,University
 55837442300,University of Tokyo,University
-7202751866,The University of Tokyo,University
+55837442300,The University of Tokyo,University
 7202751866,University of Tokyo,University
-6506010179,The University of Tokyo,University
+7202751866,The University of Tokyo,University
 6506010179,University of Tokyo,University
-35873737200,Aerospace Research and Development Directorate,Company
+6506010179,The University of Tokyo,University
 35873737200,Research Unit III,Company
+35873737200,Aerospace Research and Development Directorate,Company
 37113017300,Massachusetts Institute of Technology,University
 55919211300,Massachusetts Institute of Technology,University
 57202785989,Brigham Young University,University
@@ -1807,8 +1807,8 @@ Author,Organization Name,Type
 55444802600,Université de Rennes 1,University
 7004450337,Indiana University,University
 55326050200,University of California,University
-57212184217,University of California,University
 57212184217,University of California Santa Cruz,University
+57212184217,University of California,University
 57189292901,Brigham Young University,University
 36137344800,Brigham Young University,University
 55486520500,Brigham Young University,University
