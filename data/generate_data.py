@@ -40,9 +40,52 @@ def clean_data(data_csv, clean_data_csv):
             output.writerow(row)
 
 
+def create_origins_paper(paper):
+    origins = list(paper)
+    origins[2] += ': The Origin'
+    origins[3] = f'{int(paper[3]) - 2}'
+    origins[12] += '/O'
+    return origins
+
+
+def create_prequel_paper(paper):
+    prequel = list(paper)
+    prequel[2] += ': The Prequel'
+    prequel[3] = f'{int(paper[3]) - 1}'
+    prequel[12] += '/P'
+    return prequel
+
+
+def create_sequel_paper(paper):
+    sequel = list(paper)
+    sequel[2] += ': The Sequel'
+    sequel[3] = f'{int(paper[3]) + 1}'
+    sequel[12] += '/S'
+    return sequel
+
+
 def expand_data(data_csv, expanded_data_csv):
     with open(data_csv, encoding='utf8') as file:
-        data = list(csv.reader(file))[1:]
+        reader = csv.reader(file)
+        headers = next(reader)
+        data = list(reader)
+
+    # Get list of conference publications
+    conference_papers = [paper for paper in data if paper[19] == 'Conference Paper']
+
+    expanded_papers = []
+    # For each paper create three extra papers:
+    # Two published on the previous years (Origins and Prequel) and one on the next year (Sequel)
+    for paper in conference_papers:
+        expanded_papers.append(create_origins_paper(paper))
+        expanded_papers.append(create_prequel_paper(paper))
+        expanded_papers.append(create_sequel_paper(paper))
+
+    with open(expanded_data_csv, encoding='utf8', mode='w+', newline='') as output_file:
+        output = csv.writer(output_file)
+        output.writerow(headers)
+        output.writerows(data)
+        output.writerows(expanded_papers)
 
 
 def create_citation_csv(data_csv, citations_csv):
@@ -187,7 +230,7 @@ def extract_affiliations(data_csv, affiliations_csv):
 
 if __name__ == '__main__':
     clean_data(data_csv='./data/csvs/data.csv', clean_data_csv='./data/csvs/clean_data.csv')
-    # expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
+    expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
     # create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
     # create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
     #                   reviewers_csv='./data/csvs/reviewers.csv')
