@@ -18,7 +18,15 @@ def analyze_data():
     for paper in data:
         for author in paper[1].split(';')[:-1]:
             author_papers[author] = author_papers[author] + 1 if author in author_papers else 1
-    print(f'Average papers per author: {sum(author_papers.values()) / len(author_papers)}')
+    print(f'Average papers per author: {sum(author_papers.values()) / len(author_papers):.2f}')
+
+    journal_articles = [paper for paper in data if paper[19] == 'Article']
+    journals = {paper[4] for paper in journal_articles}
+    print(f'Average paper per journal: {len(journal_articles) / len(journals):.2f}')
+
+    conference_papers = [paper for paper in data if paper[19] == 'Conference Paper']
+    conferences = {paper[4] for paper in conference_papers}
+    print(f'Average paper per conference: {len(conference_papers) / len(conferences):.2f}')
 
 
 if __name__ == '__main__':
