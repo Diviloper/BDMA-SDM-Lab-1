@@ -1,5 +1,6 @@
 import csv
 import random
+import re
 
 
 def clean_data(data_csv, clean_data_csv):
@@ -30,6 +31,12 @@ def clean_data(data_csv, clean_data_csv):
             if not row[18]:
                 continue
             dois.add(row[12])
+
+            # Remove edition info (year and edition numnber) from conference names
+            values = [r'\d+((st)|(nd)|(rd)|(th)) ', r'\d{4}']
+            for reg in values:
+                row[4] = re.sub(reg, '', row[4])
+
             output.writerow(row)
 
 
@@ -180,8 +187,8 @@ def extract_affiliations(data_csv, affiliations_csv):
 
 if __name__ == '__main__':
     clean_data(data_csv='./data/csvs/data.csv', clean_data_csv='./data/csvs/clean_data.csv')
-    expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
-    create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
-    create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
-                      reviewers_csv='./data/csvs/reviewers.csv')
-    extract_affiliations(data_csv='./data/csvs/expanded_data.csv', affiliations_csv='./data/csvs/affiliations.csv')
+    # expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
+    # create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
+    # create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
+    #                   reviewers_csv='./data/csvs/reviewers.csv')
+    # extract_affiliations(data_csv='./data/csvs/expanded_data.csv', affiliations_csv='./data/csvs/affiliations.csv')
