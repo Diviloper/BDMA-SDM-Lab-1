@@ -32,13 +32,22 @@ CREATE (p)-[:has]->(k)
 
 // Create Journals
 LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS line
+WITH line
+  WHERE line.`Document Type` = 'Article'
 MATCH (p:Publication {doi: line.DOI})
-MERGE (j:JournalConference {
-  name:   line.`Source title`,
-  type:   line.`Document Type`,
-  year:   toInteger(line.Year),
-  volume: coalesce(line.Volume, 0)})
-CREATE (p)-[:published_in]->(j)
+MERGE (j:Journal {name: line.`Source title`})
+CREATE (p)-[:published_in {volume: coalesce(line.Volume, 0)}]->(j)
+;
+
+// Create Conferences
+LOAD CSV WITH HEADERS FROM 'file:///data.csv' AS line
+WITH line
+  WHERE line.`Document Type` = 'Conference Paper'
+MATCH (p:Publication {doi: line.DOI})
+MERGE (c:Conference {name: line.`Source title`})
+MERGE (ce:ConferenceEdition {year: toInteger(line.Year)})
+MERGE (ce) -[:belongs_to]->(c)
+CREATE (p)-[:published_in {volume: coalesce(line.Volume, 0)}]->(ce)
 ;
 
 // Add reviewers
@@ -58,30 +67,6 @@ MATCH (c:Publication {doi: line.Citation})
 CREATE (p)-[:cites]->(c)
 ;
 
-MATCH (j:JournalConference {type: 'Article'})
-REMOVE j:JournalConference
-REMOVE j.year
-REMOVE j.type
-SET j:Journal
-;
-
-MATCH (n)-[p:published_in]->(j:Journal)
-SET p.volume = j.volume
-REMOVE j.volume
-;
-
-MATCH (c:JournalConference {type: 'Conference Paper'})
-REMOVE c:JournalConference
-REMOVE c.volume
-SET c:ConferenceEdition
-REMOVE c.type
-;
-
-MATCH (ce:ConferenceEdition)
-MERGE (c:Conference {name: ce.name})
-MERGE (ce)-[:belongs_to]->(c)
-;
-
 // Checker query
 MATCH (a:Author)
 WITH count(a) AS authors
@@ -91,4 +76,8 @@ MATCH w = ()-[:writes]->()
 WITH authors, publications, count(w) AS writes
 MATCH (k:Keyword)
 WITH authors, publications, writes, count(k) AS keywords
-RETURN authors, publications, writes, keywords
+MATCH (j:Journal)
+WITH authors, publications, writes, keywords, count(j) AS journals
+MATCH (c:Conference)
+WITH authors, publications, writes, keywords, journals, count(c) AS conferences
+RETURN *
