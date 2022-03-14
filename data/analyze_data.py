@@ -1,9 +1,12 @@
 import csv
 
 
-def analyze_data():
-    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
+def analyze_data(data_csv):
+    with open(data_csv, encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
+    print(f'=============================================================================')
+    print(f'Analyzing data from {data_csv}')
+    print(f'=============================================================================')
     print(f'Number of publications: {len(data)}')
     print(f'Number of Titles: {len({paper[2] for paper in data})}')
     print(f'Number of DOIs: {len({paper[12] for paper in data})}')
@@ -28,6 +31,9 @@ def analyze_data():
     conferences = {paper[4] for paper in conference_papers}
     print(f'Average paper per conference: {len(conference_papers) / len(conferences):.2f}')
 
+    print(f'=============================================================================')
+
 
 if __name__ == '__main__':
-    analyze_data()
+    analyze_data('./data/csvs/clean_data.csv')
+    analyze_data('./data/csvs/expanded_data.csv')
