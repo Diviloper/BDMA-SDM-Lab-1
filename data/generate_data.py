@@ -2,9 +2,9 @@ import csv
 import random
 
 
-def clean_data():
-    with open('./data/csvs/data.csv', encoding='utf8') as file, \
-            open('./data/csvs/clean_data.csv', encoding='utf8', mode='w+', newline='') as output_file:
+def clean_data(data_csv, clean_data_csv):
+    with open(data_csv, encoding='utf8') as file, \
+            open(clean_data_csv, encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         csv_file = csv.reader(file)
         headers = next(csv_file)
@@ -33,8 +33,13 @@ def clean_data():
             output.writerow(row)
 
 
-def create_citation_csv():
-    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
+def expand_data(data_csv, expanded_data_csv):
+    with open(data_csv, encoding='utf8') as file:
+        data = list(csv.reader(file))[1:]
+
+
+def create_citation_csv(data_csv, citations_csv):
+    with open(data_csv, encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
 
     # Sort papers by year
@@ -62,7 +67,7 @@ def create_citation_csv():
 
         citations.extend([(paper[12], citation[1]) for citation in cited_papers])
 
-    with open('./data/csvs/citations.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open(citations_csv, encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Paper', 'Citation'])
         output.writerows(citations)
@@ -83,8 +88,8 @@ def generate_review(decision):
     ])
 
 
-def create_review_csv():
-    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
+def create_review_csv(data_csv, reviews_csv, reviewers_csv):
+    with open(data_csv, encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
 
     # Get the keywords related to an author -> Keywords that are present in at least one of their papers
@@ -131,18 +136,18 @@ def create_review_csv():
             review = generate_review(decision)
             reviews.append([paper[12], reviewer, decision, review])
 
-    with open('./data/csvs/reviews.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open(reviews_csv, encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Paper', 'Reviewer', 'Decision', 'Review'])
         output.writerows(reviews)
-    with open('./data/csvs/reviewers.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open(reviewers_csv, encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Paper', 'Reviewers'])
         output.writerows(reviewers)
 
 
-def extract_affiliations():
-    with open('./data/csvs/clean_data.csv', encoding='utf8') as file:
+def extract_affiliations(data_csv, affiliations_csv):
+    with open(data_csv, encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
     affiliations = {}
     for paper in data:
@@ -167,14 +172,16 @@ def extract_affiliations():
         for author, aff in affiliations.items()
         for org, org_type in aff
     ]
-    with open('./data/csvs/affiliations.csv', encoding='utf8', mode='w+', newline='') as output_file:
+    with open(affiliations_csv, encoding='utf8', mode='w+', newline='') as output_file:
         output = csv.writer(output_file)
         output.writerow(['Author', 'Organization Name', 'Type'])
         output.writerows(flat_affiliations)
 
 
 if __name__ == '__main__':
-    clean_data()
-    create_citation_csv()
-    create_review_csv()
-    extract_affiliations()
+    clean_data(data_csv='./data/csvs/data.csv', clean_data_csv='./data/csvs/clean_data.csv')
+    expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
+    create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
+    create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
+                      reviewers_csv='./data/csvs/reviewers.csv')
+    extract_affiliations(data_csv='./data/csvs/expanded_data.csv', affiliations_csv='./data/csvs/affiliations.csv')
