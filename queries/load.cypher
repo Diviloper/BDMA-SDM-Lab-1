@@ -45,8 +45,7 @@ WITH line
   WHERE line.`Document Type` = 'Conference Paper'
 MATCH (p:Publication {doi: line.DOI})
 MERGE (c:Conference {name: line.`Source title`})
-MERGE (ce:ConferenceEdition {year: toInteger(line.Year)})
-MERGE (ce)-[:belongs_to]->(c)
+MERGE (ce:ConferenceEdition {year: toInteger(line.Year)})-[:belongs_to]->(c)
 CREATE (p)-[:published_in {volume: coalesce(line.Volume, 0)}]->(ce)
 ;
 
