@@ -18,6 +18,8 @@ def analyze_data(data_csv):
     print(f'Number of Publishers: {len({paper[4] for paper in data})}')
     print(f'Number of Journals: {len({paper[4] for paper in data if paper[19] == "Article"})}')
     print(f'Number of Conferences: {len({paper[4] for paper in data if paper[19] == "Conference Paper"})}')
+    print(f'Number of Conference Editions: '
+          f'{len({f"{paper[4]}-{paper[3]}" for paper in data if paper[19] == "Conference Paper"})}')
 
     author_papers = {}
     for paper in data:
