@@ -46,7 +46,7 @@ WITH line
 MATCH (p:Publication {doi: line.DOI})
 MERGE (c:Conference {name: line.`Source title`})
 MERGE (ce:ConferenceEdition {year: toInteger(line.Year)})
-MERGE (ce) -[:belongs_to]->(c)
+MERGE (ce)-[:belongs_to]->(c)
 CREATE (p)-[:published_in {volume: coalesce(line.Volume, 0)}]->(ce)
 ;
 
@@ -68,16 +68,12 @@ CREATE (p)-[:cites]->(c)
 ;
 
 // Checker query
-MATCH (a:Author)
-WITH count(a) AS authors
-MATCH (p:Publication)
-WITH authors, count(p) AS publications
-MATCH w = ()-[:writes]->()
-WITH authors, publications, count(w) AS writes
+MATCH w = (a:Author)-[:writes]->(p:Publication)
+WITH count(DISTINCT a) AS authors, count(DISTINCT p) AS  publications, count(w) AS writes
 MATCH (k:Keyword)
 WITH authors, publications, writes, count(k) AS keywords
 MATCH (j:Journal)
 WITH authors, publications, writes, keywords, count(j) AS journals
 MATCH (c:Conference)
 WITH authors, publications, writes, keywords, journals, count(c) AS conferences
-RETURN *
+RETURN authors, publications, writes, keywords, journals, conferences
