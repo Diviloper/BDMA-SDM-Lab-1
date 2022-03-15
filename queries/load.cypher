@@ -75,4 +75,6 @@ MATCH (j:Journal)
 WITH authors, publications, writes, keywords, count(j) AS journals
 MATCH (c:Conference)
 WITH authors, publications, writes, keywords, journals, count(c) AS conferences
-RETURN authors, publications, writes, keywords, journals, conferences
+MATCH (ce:ConferenceEdition)
+WITH authors, publications, writes, keywords, journals, conferences, count(ce) AS editions
+RETURN authors, publications, writes, keywords, journals, conferences, editions
