@@ -1,3 +1,21 @@
+// Query 1 Top 3 most cited authors per conference
+MATCH (:Publication)-[r:cites]->(cited_paper:Publication)-[:published_in]->(:ConferenceEdition)-[:belongs_to]->(conf:Conference)
+WITH conf, cited_paper, COUNT(r) AS num_citations
+ORDER BY conf, num_citations DESC
+WITH conf, collect(cited_paper)[..3] AS top3_most_cited_papers
+RETURN conf,
+       top3_most_cited_papers[0] AS top1_paper,
+       top3_most_cited_papers[1] AS top2_paper,
+       top3_most_cited_papers[2] AS top3_paper
+;
+
+//Query 2 Authors that have published in the same conference in at least 4 editions
+MATCH (a:Author)-[:writes]->(p:Publication)-[:published_in]->(ce:ConferenceEdition)-[:belongs_to]->(c:Conference)
+WITH c, a, COUNT(DISTINCT ce) AS distinct_editions
+WHERE distinct_editions >= 4
+RETURN c, a
+;
+
 // Query 3 Impact factor
 // For every year
 MATCH (journal:Journal)<-[:published_in]-(p:Publication) <-[c:cites]-(:Publication)
@@ -32,4 +50,4 @@ RETURN author,
          ELSE hindex
          END) AS `H-Index`
 ;
-//reduce(lambda h_index, next_citations: h_index + 1 if next_citations >= h_index else h_index, cites, 0)
+//reduce(lambda h_index, next_citations: h_index + 1 if next_citations > h_index else h_index, cites, 0)
