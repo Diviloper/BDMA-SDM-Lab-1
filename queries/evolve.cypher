@@ -18,7 +18,7 @@ REMOVE o.type
 
 // Load Review info
 LOAD CSV WITH HEADERS FROM 'file:///reviews.csv' AS line
-MATCH (:Publication {title: line.Paper}) <-[r:reviews]- (:Author {id: line.Reviewer})
+MATCH (:Publication {doi: line.Paper}) <-[r:reviews]- (:Author {id: line.Reviewer})
 SET
   r.Decision = line.Decision,
   r.Review = line.Review

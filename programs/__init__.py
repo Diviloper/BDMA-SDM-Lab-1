@@ -1,0 +1,2 @@
+from partA2_ZafalonDivi import load_database
+from clean_database import clean_database
