@@ -87,6 +87,33 @@ def expand_data(data_csv, expanded_data_csv):
         output.writerows(expanded_papers)
 
 
+def add_community_keywords(data_csv, output_data_csv):
+    with open(data_csv, encoding='utf8') as file:
+        reader = csv.reader(file)
+        headers = next(reader)
+        data = list(reader)
+
+    publishers = [paper[4] for paper in data]
+    counts = sorted([(publisher, publishers.count(publisher)) for publisher in set(publishers)], key=lambda x: x[1],
+                    reverse=True)
+
+    top_publishers = [x[0] for x in counts[:15]]
+
+    database_keywords = ['data management', 'indexing', 'data modeling', 'big data', 'data processing', 'data storage',
+                         'data querying']
+    for paper in data:
+        if paper[4] not in top_publishers:
+            continue
+        keywords = paper[18].split('; ')
+        keywords.append(random.choice(database_keywords))
+        paper[18] = '; '.join(keywords)
+
+    with open(output_data_csv, encoding='utf8', mode='w+', newline='') as output_file:
+        output = csv.writer(output_file)
+        output.writerow(headers)
+        output.writerows(data)
+
+
 def create_citation_csv(data_csv, citations_csv):
     with open(data_csv, encoding='utf8') as file:
         data = list(csv.reader(file))[1:]
@@ -230,6 +257,7 @@ def extract_affiliations(data_csv, affiliations_csv):
 if __name__ == '__main__':
     clean_data(data_csv='./data/csvs/data.csv', clean_data_csv='./data/csvs/clean_data.csv')
     expand_data(data_csv='./data/csvs/clean_data.csv', expanded_data_csv='./data/csvs/expanded_data.csv')
+    add_community_keywords(data_csv='./data/csvs/expanded_data.csv', output_data_csv='./data/csvs/expanded_data.csv')
     create_citation_csv(data_csv='./data/csvs/expanded_data.csv', citations_csv='./data/csvs/citations.csv')
     create_review_csv(data_csv='./data/csvs/expanded_data.csv', reviews_csv='./data/csvs/reviews.csv',
                       reviewers_csv='./data/csvs/reviewers.csv')
