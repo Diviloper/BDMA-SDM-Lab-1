@@ -48,7 +48,7 @@ CALL gds.pageRank.write('papers_in_database_communities_journals_or_conferences'
 })
 ;
 
-// Return the top papers for each community based on their page rank
+// Return the top 100 papers for each community based on their page rank
 MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
       WHERE c:Conference OR c:Journal
 WITH c, count(DISTINCT p) as total_papers
@@ -61,5 +61,26 @@ MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
   WHERE c:Conference OR c:Journal
 WITH c, p ORDER BY p.pagerank DESC
 WITH c, COLLECT(p) AS p
-RETURN c,p[0..2]
+RETURN c,p[0..100]
 ORDER BY c
+
+// Find authors that wrote at least two papers among the top-100 identified above
+MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+      WHERE c:Conference OR c:Journal
+WITH c, count(DISTINCT p) as total_papers
+MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->(c:Journal)
+  WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
+WITH c, total_papers, count(DISTINCT p_db) as database_community_papers
+  WHERE toFloat(database_community_papers)/total_papers > 0.9
+WITH c
+MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+  WHERE c:Conference OR c:Journal
+WITH c, p ORDER BY p.pagerank DESC
+WITH c, COLLECT(p) AS p
+WITH c,p[0..100] as top_papers
+UNWIND top_papers as p
+MATCH (a:Author)-[w:writes]->(p:Publication)
+// in order to get all the authors of the top-100 papers, use "RETURN a" here
+WITH a, count(w) as number_of_written_papers
+WHERE number_of_written_papers >= 2
+RETURN a;
