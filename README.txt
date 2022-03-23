@@ -8,13 +8,12 @@ This zip contains 5 elements:
 The folder named "data" contains the scripts used to manipulate and analyze the original data, and a folder (csvs)
 containing such data.
 
-The folder named "queries" contains 6 cypher files containing the different queries used in the lab. However, these are
-not run by the python programs.
+The folder named "queries" contains 6 cypher files containing the different queries used in the lab.
 
 The folder named "programs" contains three subdirectories:
     - "programs" contains the different python files for the loading and evolving programs
     - "program_queries" contains cypher files with the queries used in the programs
-    - "program_csvs" contains the data files that should be used
+    - "program_csvs" contains the data files that should be used to load the graph
 
 Steps to run the programs:
     1. Install dependencies if necessary (the only required package is "neo4j")
