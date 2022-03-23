@@ -1,17 +1,19 @@
 // Find the database community
 MATCH (n:Publication)-[h:has]->(k:Keyword)
-WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
+  WHERE k.keyword IN ['data management', 'indexing', 'data modeling', 'big data', 'data processing', 'data storage',
+    'data querying']
 RETURN *
 ;
 
 // Find conferences and journals related to the database community
 MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
   WHERE c:Conference OR c:Journal
-WITH c, count(DISTINCT p) as total_papers
-MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->(c:Journal)
-  WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
-WITH c, total_papers, count(DISTINCT p_db) as database_community_papers
-  WHERE toFloat(database_community_papers)/total_papers > 0.9
+WITH c, count(DISTINCT p) AS total_papers
+MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+  WHERE k.keyword IN ['data management', 'indexing', 'data modeling', 'big data',
+    'data processing', 'data storage', 'data querying']
+WITH c, total_papers, count(DISTINCT p_db) AS database_community_papers
+  WHERE toFloat(database_community_papers) / total_papers > 0.9
 RETURN c
 ;
 
@@ -20,23 +22,23 @@ RETURN c
 
 // Create projection of papers published in journals/conferences that are in the database community
 CALL gds.graph.create.cypher(
-  // graph name
-  'papers_in_database_communities_journals_or_conferences',
-  // node query: return the nodes for publications published in journals/conferences from the database community
-  'MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
-      WHERE c:Conference OR c:Journal
-    WITH c, count(DISTINCT p) as total_papers
-    MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->(c:Journal)
-      WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
-    WITH c, total_papers, count(DISTINCT p_db) as database_community_papers
-      WHERE toFloat(database_community_papers)/total_papers > 0.9
-    WITH c
-    MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
-      WHERE c:Conference OR c:Journal
-    RETURN id(p) AS id',
-  // relationship query
-  'MATCH (n:Publication)-[r:cites]->(m:Publication) RETURN id(n) AS source, id(m) AS target',
-  {validateRelationships:false}
+// graph name
+'papers_in_database_communities_journals_or_conferences',
+// node query: return the nodes for publications published in journals/conferences from the database community
+'MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+    WHERE c:Conference OR c:Journal
+  WITH c, count(DISTINCT p) as total_papers
+  MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+  WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
+  WITH c, total_papers, count(DISTINCT p_db) as database_community_papers
+    WHERE toFloat(database_community_papers)/total_papers > 0.9
+  WITH c
+  MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+    WHERE c:Conference OR c:Journal
+  RETURN id(p) AS id',
+// relationship query
+'MATCH (n:Publication)-[r:cites]->(m:Publication) RETURN id(n) AS source, id(m) AS target',
+{validateRelationships: false}
 )
 ;
 
@@ -50,37 +52,39 @@ CALL gds.pageRank.write('papers_in_database_communities_journals_or_conferences'
 
 // Return the top 100 papers for each community based on their page rank
 MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
-      WHERE c:Conference OR c:Journal
-WITH c, count(DISTINCT p) as total_papers
-MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->(c:Journal)
-  WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
-WITH c, total_papers, count(DISTINCT p_db) as database_community_papers
-  WHERE toFloat(database_community_papers)/total_papers > 0.9
+  WHERE c:Conference OR c:Journal
+WITH c, count(DISTINCT p) AS total_papers
+MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+  WHERE k.keyword IN ['data management', 'indexing', 'data modeling', 'big data',
+    'data processing', 'data storage', 'data querying']
+WITH c, total_papers, count(DISTINCT p_db) AS database_community_papers
+  WHERE toFloat(database_community_papers) / total_papers > 0.9
 WITH c
 MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
-  WHERE c:Conference OR c:Journal
-WITH c, p ORDER BY p.pagerank DESC
-WITH c, COLLECT(p) AS p
-RETURN c,p[0..100]
-ORDER BY c
+RETURN p
+  ORDER BY p.pagerank DESC
+  LIMIT 100;
+//WITH c, p
+//  ORDER BY p.pagerank DESC
+//WITH c, collect(p) AS p
+//RETURN c, p[0..100]
+//  ORDER BY c
 
 // Find authors that wrote at least two papers among the top-100 identified above
 MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
-      WHERE c:Conference OR c:Journal
-WITH c, count(DISTINCT p) as total_papers
-MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->(c:Journal)
-  WHERE k.keyword IN ["data management", "indexing", "data modeling", "big data", "data processing", "data storage","data querying"]
-WITH c, total_papers, count(DISTINCT p_db) as database_community_papers
-  WHERE toFloat(database_community_papers)/total_papers > 0.9
+  WHERE c:Conference OR c:Journal
+WITH c, count(DISTINCT p) AS total_papers
+MATCH (k:Keyword)<-[:has]-(p_db:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
+  WHERE k.keyword IN ['data management', 'indexing', 'data modeling', 'big data',
+    'data processing', 'data storage', 'data querying']
+WITH c, total_papers, count(DISTINCT p_db) AS database_community_papers
+  WHERE toFloat(database_community_papers) / total_papers > 0.9
 WITH c
 MATCH (p:Publication)-[:published_in]->()-[:belongs_to*0..1]->(c)
   WHERE c:Conference OR c:Journal
-WITH c, p ORDER BY p.pagerank DESC
-WITH c, COLLECT(p) AS p
-WITH c,p[0..100] as top_papers
-UNWIND top_papers as p
+WITH p
+  ORDER BY p.pagerank DESC
+  LIMIT 100
 MATCH (a:Author)-[w:writes]->(p:Publication)
-// in order to get all the authors of the top-100 papers, use "RETURN a" here
-WITH a, count(w) as number_of_written_papers
-WHERE number_of_written_papers >= 2
-RETURN a;
+WITH a, count(w) AS number_of_written_papers
+RETURN a AS PotentialReviewer, number_of_written_papers >= 2 AS Guru;
