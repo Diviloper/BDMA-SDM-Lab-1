@@ -1,5 +1,5 @@
 // Create Publications and authors
-LOAD CSV WITH HEADERS FROM 'file://' + $data_csv AS line
+LOAD CSV WITH HEADERS FROM 'file:///' + $data_csv AS line
 CREATE(p:Publication {
   title:    line.Title,
   year:     toInteger(line.Year),
@@ -22,7 +22,7 @@ CREATE (a)-[:writes]->(p)
 ;
 //--
 // Create keywords
-LOAD CSV WITH HEADERS FROM 'file://' + $data_csv AS line
+LOAD CSV WITH HEADERS FROM 'file:///' + $data_csv AS line
 MATCH (p:Publication {doi: line.DOI})
 WITH p, line, split(line.`Index Keywords`, '; ') AS keywords_list
 UNWIND keywords_list AS keyword_item
@@ -31,7 +31,7 @@ CREATE (p)-[:has]->(k)
 ;
 //--
 // Create Journals
-LOAD CSV WITH HEADERS FROM 'file://' + $data_csv AS line
+LOAD CSV WITH HEADERS FROM 'file:///' + $data_csv AS line
 WITH line
   WHERE line.`Document Type` = 'Article'
 MATCH (p:Publication {doi: line.DOI})
@@ -40,7 +40,7 @@ CREATE (p)-[:published_in {volume: coalesce(line.Volume, 0)}]->(j)
 ;
 //--
 // Create Conferences
-LOAD CSV WITH HEADERS FROM 'file://' + $data_csv AS line
+LOAD CSV WITH HEADERS FROM 'file:///' + $data_csv AS line
 WITH line
   WHERE line.`Document Type` = 'Conference Paper'
 MATCH (p:Publication {doi: line.DOI})
@@ -50,7 +50,7 @@ CREATE (p)-[:published_in {volume: coalesce(line.Volume, 0)}]->(ce)
 ;
 //--
 // Add reviewers
-LOAD CSV WITH HEADERS FROM 'file://' + $reviewers_csv AS line
+LOAD CSV WITH HEADERS FROM 'file:///' + $reviewers_csv AS line
 MATCH (p:Publication {doi: line.Paper})
 WITH p, split(line.Reviewers, ';') AS reviewers
 UNWIND reviewers AS reviewer
@@ -59,7 +59,7 @@ CREATE (r)-[:reviews]->(p)
 ;
 //--
 // Add citations
-LOAD CSV WITH HEADERS FROM 'file://' + $citations_csv AS line
+LOAD CSV WITH HEADERS FROM 'file:///' + $citations_csv AS line
 MATCH (p:Publication {doi: line.Paper})
 WITH line, p
 MATCH (c:Publication {doi: line.Citation})

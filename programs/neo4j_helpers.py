@@ -16,15 +16,15 @@ def open_session(url: str, db: str):
 
 
 def run_script(db_url: str, db: str, script_path: str):
-    with open_session(db_url, db) as session, open(script_path, mode='r', encoding='utf8') as script:
-        query = script.read()
-        session.run(query)
+    with open(script_path, mode='r', encoding='utf8') as script:
+        queries = [query.strip() for query in script.read().split('//--')]
+        run_queries(db_url, db, queries)
 
 
 def run_queries(db_url: str, db: str, queries: List[str | Tuple[str, str] | Tuple[str, str, Dict[str, str]]]):
     with open_session(db_url, db) as session:
         for q in queries:
-            if q is str:
+            if isinstance(q, str):
                 print('Running query', '...', end=' ')
                 session.run(q)
                 print('Done')
